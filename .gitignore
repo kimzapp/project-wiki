@@ -3,3 +3,4 @@ __pycache__
 trashes
 *.bz2
 *.jsonl
+*.log
