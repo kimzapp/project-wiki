@@ -4,3 +4,4 @@ trashes
 *.bz2
 *.jsonl
 *.log
+setup_environment.sh
