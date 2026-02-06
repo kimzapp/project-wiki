@@ -63,7 +63,7 @@ class WikipediaRevisionProcessor:
                 if record is None:
                     rev.clear()
                     continue
-
+                
                 out.write(json.dumps(record.__dict__, ensure_ascii=False) + "\n")
 
                 prev_revision_id = record.revision_id
