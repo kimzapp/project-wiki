@@ -49,9 +49,7 @@ class WikipediaRevisionProcessor:
 
     def process(self, stream):
         context = ET.iterparse(stream, events=("end",))
-
-        # 🔥 mở file bz2 ở text mode
-        out = bz2.open(self.output_path, "at", encoding="utf-8")
+        out = bz2.open(self.output_path, "at", encoding="utf-8")  # 🔥 đổi dòng này
 
         for _, elem in context:
             if strip_ns(elem.tag) != "page":
@@ -82,8 +80,7 @@ class WikipediaRevisionProcessor:
                 if record is None:
                     rev.clear()
                     continue
-
-                # ✅ ghi trực tiếp vào file nén
+                
                 out.write(json.dumps(record.__dict__, ensure_ascii=False) + "\n")
 
                 prev_revision_id = record.revision_id
@@ -98,6 +95,11 @@ class WikipediaRevisionProcessor:
                     )
 
                 rev.clear()
+
+            self.logger.debug(
+                "Finished page_id=%d title=%s revision_count=%d",
+                page_id, title, len(elem.findall("./{*}revision"))
+            )
 
             elem.clear()
             self.page_count += 1
