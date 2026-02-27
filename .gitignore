@@ -5,3 +5,4 @@ trashes
 *.jsonl
 *.log
 setup_environment.sh
+.markers
