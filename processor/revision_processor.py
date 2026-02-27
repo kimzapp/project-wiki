@@ -10,6 +10,7 @@ from domain.cleaner import normalize_text
 from utils.bz2_stream import strip_ns
 import xml.etree.ElementTree as ET
 import logging
+import os
 
 
 BOT_LIST_PATH = "/home/rmits/project-wiki/bot_list_vi.txt"  # Đường dẫn đến file chứa danh sách bot

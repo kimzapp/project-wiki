@@ -2,9 +2,20 @@ import fcntl
 from pathlib import Path
 import os
 import json
-from typing import Tuple
-from processing.parallel import ProcessingResult
+from typing import Tuple, Optional
+from dataclasses import dataclass
 import time
+
+
+@dataclass
+class ProcessingResult:
+    """Kết quả xử lý một file."""
+    file_path: str
+    success: bool
+    page_count: int
+    revision_count: int
+    elapsed_seconds: float
+    error: Optional[str] = None
 
 
 class FileLock:

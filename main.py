@@ -5,7 +5,7 @@
 import argparse
 from utils.logging import setup_logging
 from utils.bz2_stream import open_bz2_stream
-from app.revision_processor import WikipediaRevisionProcessor
+from processor.revision_processor import WikipediaRevisionProcessor
 from pathlib import Path
 from typing import List
 

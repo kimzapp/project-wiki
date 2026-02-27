@@ -23,8 +23,8 @@ import time
 from pathlib import Path
 from multiprocessing import Pool
 from utils.logging import setup_logging
-from utils.parallel import is_completed
-from processing.parallel import process_single_file, list_bz2_files
+from utils.common import is_completed
+from pipeline.parallel import process_single_file, list_bz2_files
 
 
 def parse_args():

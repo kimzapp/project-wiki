@@ -1,23 +1,11 @@
-from typing import Optional, List, Tuple
-from dataclasses import dataclass
+from typing import List, Tuple
 import time
 from pathlib import Path
-from utils.parallel import is_completed, FileLock, mark_completed, get_marker_paths
+from utils.common import is_completed, FileLock, mark_completed, get_marker_paths, ProcessingResult
 from utils.bz2_stream import open_bz2_stream
 from processor.revision_processor import WikipediaRevisionProcessor
 from utils.logging import setup_logging
 from multiprocessing import current_process
-
-
-@dataclass
-class ProcessingResult:
-    """Kết quả xử lý một file."""
-    file_path: str
-    success: bool
-    page_count: int
-    revision_count: int
-    elapsed_seconds: float
-    error: Optional[str] = None
 
 
 def list_bz2_files(input_dir: str) -> List[Path]:
