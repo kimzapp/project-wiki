@@ -10,7 +10,6 @@ from domain.cleaner import normalize_text
 from utils.bz2_stream import strip_ns
 import xml.etree.ElementTree as ET
 import logging
-import os
 import bz2
 
 
