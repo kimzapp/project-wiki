@@ -4,7 +4,7 @@ import time
 from pathlib import Path
 from utils.parallel import is_completed, FileLock, mark_completed, get_marker_paths
 from utils.bz2_stream import open_bz2_stream
-from app.revision_processor import WikipediaRevisionProcessor
+from processor.revision_processor import WikipediaRevisionProcessor
 from utils.logging import setup_logging
 from multiprocessing import current_process
 
