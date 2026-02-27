@@ -79,7 +79,7 @@ def process_single_file(args: Tuple) -> ProcessingResult:
         logger.info(f"[{process_name}] Starting: {bz2_path.name}")
         
         # Output file riêng cho mỗi bz2 file
-        output_path = output_dir / f"{bz2_path.stem}.jsonl"
+        output_path = output_dir / f"{bz2_path.stem}.jsonl.bz2"
         
         # Xử lý
         processor = WikipediaRevisionProcessor(

@@ -11,6 +11,7 @@ from utils.bz2_stream import strip_ns
 import xml.etree.ElementTree as ET
 import logging
 import os
+import bz2
 
 
 BOT_LIST_PATH = "/home/rmits/project-wiki/bot_list_vi.txt"  # Đường dẫn đến file chứa danh sách bot
@@ -49,7 +50,9 @@ class WikipediaRevisionProcessor:
 
     def process(self, stream):
         context = ET.iterparse(stream, events=("end",))
-        out = open(self.output_path, "a", encoding="utf-8")
+
+        # 🔥 mở file bz2 ở text mode
+        out = bz2.open(self.output_path, "at", encoding="utf-8")
 
         for _, elem in context:
             if strip_ns(elem.tag) != "page":
@@ -67,7 +70,7 @@ class WikipediaRevisionProcessor:
                 )
                 self.finished = True
                 out.close()
-                return  # 🔥 STOP GLOBAL
+                return
 
             page_id = int(elem.findtext("./{*}id"))
             title = elem.findtext("./{*}title")
@@ -80,7 +83,8 @@ class WikipediaRevisionProcessor:
                 if record is None:
                     rev.clear()
                     continue
-                
+
+                # ✅ ghi trực tiếp vào file nén
                 out.write(json.dumps(record.__dict__, ensure_ascii=False) + "\n")
 
                 prev_revision_id = record.revision_id
@@ -95,8 +99,6 @@ class WikipediaRevisionProcessor:
                     )
 
                 rev.clear()
-
-            self.logger.debug("Finished page_id=%d title=%s revision_count=%d", page_id, title, len(elem.findall("./{*}revision")))
 
             elem.clear()
             self.page_count += 1
