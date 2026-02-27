@@ -1,0 +1,23 @@
+AnsterBot
+ArchiverBot
+Bot Bạn có biết (NDKDD)
+CommonsDelinker
+EmausBot
+Flow talk page manager
+InternetArchiveBot
+Keo010122Bot
+Kiểm tra tự động
+Ladsgroup
+Maintenance script
+MediaWiki default
+MediaWiki message delivery
+Mạnh An-Bot
+NDKDDBot
+NhacNy2412Bot
+SongVĩ.Bot
+SongVĩ.Bot II
+SpBot
+TheFriendlyRobot
+ThitxongkhoiAWB
+Trình quản lý trang thảo luận Flow
+Xqbot

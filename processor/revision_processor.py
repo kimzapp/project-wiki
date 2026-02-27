@@ -12,6 +12,8 @@ import xml.etree.ElementTree as ET
 import logging
 
 
+BOT_LIST_PATH = "/home/rmits/project-wiki/bot_list_vi.txt"  # Đường dẫn đến file chứa danh sách bot
+
 class WikipediaRevisionProcessor:
     def __init__(
         self,
@@ -29,6 +31,20 @@ class WikipediaRevisionProcessor:
         self.revision_count = 0
         self.start_time = time.time()
         self.finished = False
+        self.bot_list = self._load_bot_list()
+
+
+    def _load_bot_list(self):
+        """Load the list of known bot usernames from a file."""
+        bot_list = set()
+        try:
+            with open(BOT_LIST_PATH, "r", encoding="utf-8") as f:
+                for line in f:
+                    bot_list.add(line.strip())
+        except FileNotFoundError:
+            self.logger.warning(f"Bot list file not found: {BOT_LIST_PATH}")
+        return bot_list
+
 
     def process(self, stream):
         context = ET.iterparse(stream, events=("end",))
@@ -107,6 +123,8 @@ class WikipediaRevisionProcessor:
                 username = contributor.findtext("./{*}ip")
                 is_anonymous = True
 
+        is_bot = self.detect_bot(username, rev.findtext("./{*}comment"))
+
         return RevisionRecord(
             page_id=page_id,
             page_title=title,
@@ -116,8 +134,36 @@ class WikipediaRevisionProcessor:
             user_id=int(user_id) if user_id else None,
             username=username,
             is_anonymous=is_anonymous,
-            comment=rev.findtext("./{*}comment") or "",
+            is_bot=is_bot,
             raw_text_len=len(raw_text),
             clean_text_len=len(clean),
             clean_text=clean,
         )
+
+    def detect_bot(self, username: Optional[str], comment: Optional[str] = None) -> bool:
+        """Phát hiện bot dựa trên username, comment và danh sách bot đã tải về."""
+        if not username and not comment:
+            return False
+        
+        if username in self.bot_list:
+            return True
+
+        username = username.lower() if username else ""
+        comment = comment.lower() if comment else ""
+        bot_indicators = ["bot", "auto", "script", "crawler", "spider"]
+        return any(ind in username or ind in comment for ind in bot_indicators)
+    
+
+if __name__ == "__main__":
+    def _load_bot_list():
+        """Load the list of known bot usernames from a file."""
+        bot_list = set()
+        try:
+            with open(BOT_LIST_PATH, "r", encoding="utf-8") as f:
+                for line in f:
+                    bot_list.add(line.strip())
+        except Exception as e:
+            print(f"Error loading bot list: {e}")
+        return bot_list
+    
+    print(_load_bot_list())
