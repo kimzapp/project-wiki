@@ -17,6 +17,8 @@ class RevisionRecord:
     username: Optional[str]
     is_anonymous: bool
     is_bot: bool
+    raw_text: str
     raw_text_len: int
+    citation_count: int
     clean_text_len: int
     clean_text: str

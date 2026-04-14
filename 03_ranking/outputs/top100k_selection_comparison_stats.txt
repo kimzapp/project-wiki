@@ -1,0 +1,40 @@
+Top-k article selection comparison
+input_csv: ranking_results/article_scores.csv
+raw_text_csv: ranking_results/latest_revisions_for_mysql.csv
+total_rows: 960219
+
+Method 1: quality -> citation
+top_k: 10000
+quality_cutoff: 2990.9378755500
+quality_pool_size: 10000
+citation_cutoff_in_selected: 0.0000000000
+citation_ties_at_cutoff_in_pool: 10000
+selected_quality_mean: 5816.0914656957
+selected_quality_median: 4568.3115700600
+selected_citation_mean: 0.0000000000
+selected_citation_median: 0.0000000000
+raw_text_found_count: 10000
+raw_text_found_ratio: 1.0000000000
+
+Method 2: weighted z-score final_score
+top_k: 10000
+weight_quality_normalized: 0.7000000000
+weight_citation_normalized: 0.3000000000
+quality_mean_all: 220.8443185944
+quality_std_all: 777.1806369664
+citation_mean_all: 0.0000000000
+citation_std_all: 0.0000000000
+final_score_cutoff: 2.4949997435
+final_score_ties_at_cutoff: 1
+selected_quality_mean: 5816.0914656957
+selected_quality_median: 4568.3115700600
+selected_citation_mean: 0.0000000000
+selected_citation_median: 0.0000000000
+selected_final_mean: 5.0395915913
+selected_final_median: 3.9157268353
+raw_text_found_count: 10000
+raw_text_found_ratio: 1.0000000000
+
+Overlap
+intersection_count: 10000
+intersection_ratio_vs_topk: 1.0000000000

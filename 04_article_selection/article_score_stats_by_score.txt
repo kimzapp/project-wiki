@@ -1,0 +1,17 @@
+Article quality score summary
+count: 960219
+min: 0.99338114
+q1: 12.09549840
+median: 38.00000000
+mean: 220.84431859
+q3: 121.10282359
+max: 78001.71902841
+selected_top_ratio: 0.1000
+selected_top_count: 96022
+
+Cutoff diagnostics
+cutoff_ratio: 0.1000
+cutoff_top_n: 96022
+cutoff_score: 494.00000000
+count_score_gt_cutoff: 96003
+count_score_ge_cutoff: 96059

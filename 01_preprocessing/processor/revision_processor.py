@@ -6,7 +6,7 @@ import json
 import time
 from typing import Optional
 from domain.models import RevisionRecord
-from domain.cleaner import normalize_text
+from domain.cleaner import normalize_text, count_citations
 from utils.bz2_stream import strip_ns
 import xml.etree.ElementTree as ET
 import logging
@@ -111,6 +111,7 @@ class WikipediaRevisionProcessor:
         rev_id = rev.findtext("./{*}id")
         timestamp = rev.findtext("./{*}timestamp")
         raw_text = rev.findtext("./{*}text") or ""
+        citation_count = count_citations(raw_text)
 
         clean = normalize_text(raw_text)
         if not clean or not timestamp:
@@ -139,7 +140,9 @@ class WikipediaRevisionProcessor:
             username=username,
             is_anonymous=is_anonymous,
             is_bot=is_bot,
+            raw_text=raw_text,
             raw_text_len=len(raw_text),
+            citation_count=citation_count,
             clean_text_len=len(clean),
             clean_text=clean,
         )

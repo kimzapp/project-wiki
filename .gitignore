@@ -6,3 +6,11 @@ trashes
 *.log
 setup_environment.sh
 .markers
+*.pem
+.markers_ranking
+.markers_page_log_test
+.markers_ranking_cite
+.markers_cite
+*.csv
+HF_tokens.txt
+wandb_key.txt

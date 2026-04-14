@@ -2,13 +2,10 @@ import bz2
 import json
 
 if __name__ == "__main__":
-    with bz2.open("/home/rmits/project-wiki/02_filtering/outputs/viwiki-20251101-pages-meta-history1.xml-p139313p273731.jsonl.bz2", "rt") as f:
+    with bz2.open("/home/rmits/project-wiki/histories_filtered/viwiki-20251101-pages-meta-history1.xml-p1p5762.jsonl.bz2", "rt") as f:
         for i, line in enumerate(f):
             data = json.loads(line)
-            data.pop("timestamp", None)
-            data.pop("user_name", None)
-            data.pop("is_anonymous", None)  # Remove the empty key if it exists
-            data.pop("is_bot", None)  # Remove the empty key if it exists
-
-            print(data)
-            break
+            page_id = data.get("page_id")
+            page_title = data.get("title")
+            revision_count = len(data.get("revisions", []))
+            print(f"Page ID: {page_id}, Title: {page_title}, Revision Count: {revision_count}")
