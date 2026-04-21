@@ -18,6 +18,12 @@ class TrainResult:
     test_metrics: dict
 
 
+def _unwrap_model(model: torch.nn.Module) -> torch.nn.Module:
+    if isinstance(model, torch.nn.DataParallel):
+        return model.module
+    return model
+
+
 def compute_metrics_np(labels: np.ndarray, preds: np.ndarray) -> dict:
     return {
         "accuracy": float(accuracy_score(labels, preds)),
@@ -39,6 +45,13 @@ def run_transformer_training(
     bf16: bool = False,
     wandb_run=None,
 ):
+    if device.type == "cuda":
+        gpu_count = torch.cuda.device_count()
+        if gpu_count > 1:
+            print(f"[info] Detected {gpu_count} GPUs. Hugging Face Trainer will use multi-GPU automatically.")
+        elif gpu_count == 1:
+            print("[info] Detected 1 GPU. Training on single GPU.")
+
     def _compute_metrics(eval_pred):
         logits, labels = eval_pred
         preds = np.argmax(logits, axis=1)
@@ -246,6 +259,15 @@ def run_rnn_training(
     wandb_run=None,
 ):
     model.to(device)
+
+    if device.type == "cuda":
+        gpu_count = torch.cuda.device_count()
+        if gpu_count > 1:
+            print(f"[info] Detected {gpu_count} GPUs. Enabling torch.nn.DataParallel for RNN training.")
+            model = torch.nn.DataParallel(model)
+        elif gpu_count == 1:
+            print("[info] Detected 1 GPU. Training on single GPU.")
+
     optimizer = AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
 
     best_state = None
@@ -314,6 +336,6 @@ def run_rnn_training(
         })
 
     ckpt_path = f"{output_dir}/best_model.pt"
-    torch.save(model.state_dict(), ckpt_path)
+    torch.save(_unwrap_model(model).state_dict(), ckpt_path)
 
     return TrainResult(best_val_metrics=best_val_metrics, test_metrics=test_metrics)

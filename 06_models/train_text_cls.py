@@ -4,6 +4,8 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
+import torch
+
 try:
     import wandb
 except ImportError:
@@ -78,7 +80,14 @@ def build_reproduce_cli_command() -> str:
     return f"{python_exec} {script}{(' ' + arg_str) if arg_str else ''}"
 
 
-def build_experiment_config(args, out_dir: Path, run_name: str, device: str) -> dict:
+def build_experiment_config(
+    args,
+    out_dir: Path,
+    run_name: str,
+    device: str,
+    gpu_count: int,
+    multi_gpu_enabled: bool,
+) -> dict:
     cli_params = vars(args).copy()
 
     common_hparams = {
@@ -122,6 +131,8 @@ def build_experiment_config(args, out_dir: Path, run_name: str, device: str) -> 
         "runtime": {
             "device": device,
             "force_cpu": args.force_cpu,
+            "gpu_count": gpu_count,
+            "multi_gpu_enabled": multi_gpu_enabled,
         },
         "hyperparameters": {
             "common": common_hparams,
@@ -187,9 +198,26 @@ def main():
     )
 
     device = resolve_device(force_cpu=args.force_cpu)
+    gpu_count = torch.cuda.device_count() if (device.type == "cuda") else 0
+    multi_gpu_enabled = gpu_count > 1
 
-    experiment_config = build_experiment_config(args=args, out_dir=out_dir, run_name=run_name, device=str(device))
+    experiment_config = build_experiment_config(
+        args=args,
+        out_dir=out_dir,
+        run_name=run_name,
+        device=str(device),
+        gpu_count=gpu_count,
+        multi_gpu_enabled=multi_gpu_enabled,
+    )
     wandb_run = init_wandb_run(args=args, run_name=run_name, out_dir=out_dir, config=experiment_config)
+
+    if device.type == "cuda":
+        if multi_gpu_enabled:
+            print(f"[info] Auto-detected {gpu_count} GPUs. Multi-GPU mode is enabled.")
+        else:
+            print("[info] Auto-detected 1 GPU. Running in single-GPU mode.")
+    else:
+        print("[info] Running on CPU.")
 
     try:
         if args.model_type == "transformer":
@@ -279,6 +307,9 @@ def main():
     print(f"Saved artifacts to: {out_dir}")
     print(f"Best validation metrics: {metrics['best_val']}")
     print(f"Test metrics: {metrics['test']}")
+    print(
+        f"Runtime device: {device} | gpu_count={gpu_count} | multi_gpu_enabled={multi_gpu_enabled}"
+    )
 
 
 if __name__ == "__main__":
