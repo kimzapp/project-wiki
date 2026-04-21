@@ -250,9 +250,9 @@ def build_data_bundle(
         "collate_fn": collate_fn,
     }
 
-    train_loader = DataLoader(train_dataset, shuffle=True, **loader_kwargs)
-    val_loader = DataLoader(val_dataset, shuffle=False, **loader_kwargs)
-    test_loader = DataLoader(test_dataset, shuffle=False, **loader_kwargs)
+    train_loader = DataLoader(train_dataset, pin_memory=True, shuffle=True, **loader_kwargs)
+    val_loader = DataLoader(val_dataset, pin_memory=True, shuffle=False, **loader_kwargs)
+    test_loader = DataLoader(test_dataset, pin_memory=True, shuffle=False, **loader_kwargs)
 
     class_distribution = Counter(labels)
     class_distribution = {
