@@ -65,6 +65,7 @@ def parse_args():
     parser.add_argument("--wandb_run_name", type=str, default=None)
     parser.add_argument("--wandb_mode", type=str, choices=["online", "offline"], default="online")
     parser.add_argument("--wandb_tags", type=str, default="")
+    parser.add_argument("--wandb_api_key", type=str, default=None)
 
     return parser.parse_args()
 
@@ -156,6 +157,7 @@ def init_wandb_run(args, run_name: str, out_dir: Path, config: dict):
 
     wandb_run_name = args.wandb_run_name or run_name
     tags = parse_wandb_tags(args.wandb_tags)
+    wandb.login(key=args.wandb_api_key)
     return wandb.init(
         project=args.wandb_project,
         entity=args.wandb_entity,
