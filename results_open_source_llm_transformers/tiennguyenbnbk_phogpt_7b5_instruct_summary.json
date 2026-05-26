@@ -1,0 +1,162 @@
+{
+  "model_name": "tiennguyenbnbk/phogpt_7b5_instruct",
+  "profile_name": "balanced",
+  "prompt_language": "vi",
+  "modes": {
+    "shot_0": {
+      "overall_metrics": {
+        "accuracy": NaN,
+        "macro_f1": NaN,
+        "weighted_f1": NaN,
+        "precision": NaN,
+        "recall": NaN,
+        "f1": NaN,
+        "valid_coverage": 0.0
+      },
+      "runtime_metrics": {
+        "num_samples": 4,
+        "elapsed_s": 80.92565177474171,
+        "avg_latency_s": 20.23008733149618,
+        "samples_per_second": 0.04942808506669907,
+        "tokens_per_second": 0.0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "parse_fail_rate": 1.0,
+        "error_rate": 1.0
+      }
+    },
+    "shot_1": {
+      "overall_metrics": {
+        "accuracy": NaN,
+        "macro_f1": NaN,
+        "weighted_f1": NaN,
+        "precision": NaN,
+        "recall": NaN,
+        "f1": NaN,
+        "valid_coverage": 0.0
+      },
+      "runtime_metrics": {
+        "num_samples": 4,
+        "elapsed_s": 101.09374462394044,
+        "avg_latency_s": 25.27266497875098,
+        "samples_per_second": 0.03956723548899724,
+        "tokens_per_second": 0.0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "parse_fail_rate": 1.0,
+        "error_rate": 1.0
+      }
+    },
+    "shot_3": {
+      "overall_metrics": {
+        "accuracy": NaN,
+        "macro_f1": NaN,
+        "weighted_f1": NaN,
+        "precision": NaN,
+        "recall": NaN,
+        "f1": NaN,
+        "valid_coverage": 0.0
+      },
+      "runtime_metrics": {
+        "num_samples": 4,
+        "elapsed_s": 114.26914878701791,
+        "avg_latency_s": 28.566469341982156,
+        "samples_per_second": 0.035005073919430814,
+        "tokens_per_second": 0.0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "parse_fail_rate": 1.0,
+        "error_rate": 1.0
+      }
+    },
+    "shot_5": {
+      "overall_metrics": {
+        "accuracy": NaN,
+        "macro_f1": NaN,
+        "weighted_f1": NaN,
+        "precision": NaN,
+        "recall": NaN,
+        "f1": NaN,
+        "valid_coverage": 0.0
+      },
+      "runtime_metrics": {
+        "num_samples": 4,
+        "elapsed_s": 128.44683295162395,
+        "avg_latency_s": 32.110635564662516,
+        "samples_per_second": 0.031141289419774894,
+        "tokens_per_second": 0.0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "parse_fail_rate": 1.0,
+        "error_rate": 1.0
+      }
+    },
+    "shot_10": {
+      "overall_metrics": {
+        "accuracy": NaN,
+        "macro_f1": NaN,
+        "weighted_f1": NaN,
+        "precision": NaN,
+        "recall": NaN,
+        "f1": NaN,
+        "valid_coverage": 0.0
+      },
+      "runtime_metrics": {
+        "num_samples": 4,
+        "elapsed_s": 157.84855354670435,
+        "avg_latency_s": 39.46066995640285,
+        "samples_per_second": 0.025340745354479773,
+        "tokens_per_second": 0.0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "parse_fail_rate": 1.0,
+        "error_rate": 1.0
+      }
+    },
+    "shot_15": {
+      "overall_metrics": {
+        "accuracy": NaN,
+        "macro_f1": NaN,
+        "weighted_f1": NaN,
+        "precision": NaN,
+        "recall": NaN,
+        "f1": NaN,
+        "valid_coverage": 0.0
+      },
+      "runtime_metrics": {
+        "num_samples": 4,
+        "elapsed_s": 195.82356618810445,
+        "avg_latency_s": 48.954953949316405,
+        "samples_per_second": 0.020426550684699896,
+        "tokens_per_second": 0.0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "parse_fail_rate": 1.0,
+        "error_rate": 1.0
+      }
+    },
+    "shot_20": {
+      "overall_metrics": {
+        "accuracy": NaN,
+        "macro_f1": NaN,
+        "weighted_f1": NaN,
+        "precision": NaN,
+        "recall": NaN,
+        "f1": NaN,
+        "valid_coverage": 0.0
+      },
+      "runtime_metrics": {
+        "num_samples": 4,
+        "elapsed_s": 222.07523859804496,
+        "avg_latency_s": 55.51807656837627,
+        "samples_per_second": 0.018011913553496073,
+        "tokens_per_second": 0.0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "parse_fail_rate": 1.0,
+        "error_rate": 1.0
+      }
+    }
+  },
+  "generated_at": "2026-05-14T05:10:36.835361+00:00"
+}

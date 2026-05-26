@@ -1,0 +1,128 @@
+{
+  "before": {
+    "dataset": "before_filtering",
+    "path": "/home/rmits/project-wiki/05_extract_sentences/outputs/output_method1_text_label_and_ppl.jsonl",
+    "rows_loaded": 1483812,
+    "total_non_empty_lines": 1483812,
+    "json_decode_error": 0,
+    "invalid_label": 0,
+    "label_counts": {
+      "0": 1074783,
+      "1": 409029
+    },
+    "label_ratio": {
+      "0": 0.7243390672133666,
+      "1": 0.27566093278663334
+    },
+    "ppl_invalid_counts": {
+      "missing": 0,
+      "non_numeric": 0,
+      "inf": 421,
+      "nan": 0,
+      "non_positive": 0,
+      "valid": 1483391
+    },
+    "ppl_stats": {
+      "count": 1483391,
+      "min": 1.1064453125,
+      "max": 61280.0,
+      "mean": 42.53276643485791,
+      "std": 326.8775889959285,
+      "p50": 20.125,
+      "p75": 33.90625,
+      "p90": 61.625,
+      "p95": 97.6875,
+      "p99": 325.5
+    },
+    "word_len_stats": {
+      "count": 1483812,
+      "min": 1.0,
+      "max": 4572.0,
+      "mean": 30.37173577245635,
+      "std": 19.982522782844217,
+      "p50": 27.0,
+      "p75": 39.0,
+      "p90": 51.0,
+      "p95": 61.0,
+      "p99": 86.0
+    }
+  },
+  "after": {
+    "dataset": "after_filtering",
+    "path": "/home/rmits/project-wiki/05_extract_sentences/outputs/output_method1_text_label_and_ppl_final_len5_95_ppl_auto.jsonl",
+    "rows_loaded": 1206252,
+    "total_non_empty_lines": 1206252,
+    "json_decode_error": 0,
+    "invalid_label": 0,
+    "label_counts": {
+      "0": 862178,
+      "1": 344074
+    },
+    "label_ratio": {
+      "0": 0.7147577786399525,
+      "1": 0.2852422213600475
+    },
+    "ppl_invalid_counts": {
+      "missing": 0,
+      "non_numeric": 0,
+      "inf": 0,
+      "nan": 0,
+      "non_positive": 0,
+      "valid": 1206252
+    },
+    "ppl_stats": {
+      "count": 1206252,
+      "min": 1.1787109375,
+      "max": 54.375,
+      "mean": 20.953397638796663,
+      "std": 11.370165652468481,
+      "p50": 18.328125,
+      "p75": 27.40625,
+      "p90": 38.1875,
+      "p95": 44.375,
+      "p99": 52.0
+    },
+    "word_len_stats": {
+      "count": 1206252,
+      "min": 9.0,
+      "max": 61.0,
+      "mean": 30.14113966235911,
+      "std": 12.126120649840907,
+      "p50": 29.0,
+      "p75": 38.0,
+      "p90": 48.0,
+      "p95": 53.0,
+      "p99": 59.0
+    }
+  },
+  "class_cutoffs": [
+    {
+      "dataset": "before_filtering",
+      "metric": "perplexity",
+      "class_0_cutoff": 109.4375,
+      "class_1_cutoff": 69.5625,
+      "quantile_rule": "p95"
+    },
+    {
+      "dataset": "before_filtering",
+      "metric": "word_len",
+      "class_0_cutoff": 82.0,
+      "class_1_cutoff": 94.0,
+      "quantile_rule": "p99"
+    },
+    {
+      "dataset": "after_filtering",
+      "metric": "perplexity",
+      "class_0_cutoff": 45.0,
+      "class_1_cutoff": 42.72031249999782,
+      "quantile_rule": "p95"
+    },
+    {
+      "dataset": "after_filtering",
+      "metric": "word_len",
+      "class_0_cutoff": 59.0,
+      "class_1_cutoff": 60.0,
+      "quantile_rule": "p99"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "input_path": "05_extract_sentences/outputs/output_method1_text_label_and_ppl.jsonl",
+  "output_path": "05_extract_sentences/outputs/output_method1_text_label_and_ppl_final_len5_95_ppl_auto.jsonl",
+  "plots": {
+    "length_distribution_path": "05_extract_sentences/outputs/output_method1_text_label_and_ppl_final_len5_95_ppl_auto_length_distribution.png",
+    "perplexity_distribution_path": "05_extract_sentences/outputs/output_method1_text_label_and_ppl_final_len5_95_ppl_auto_perplexity_distribution.png"
+  },
+  "length_filter": {
+    "unit": "word_count",
+    "split_rule": "whitespace",
+    "lower_percentile": 5.0,
+    "upper_percentile": 95.0,
+    "lower_cutoff": 9.0,
+    "upper_cutoff": 61.0,
+    "keep_ratio_after_length": 0.9030753222106305
+  },
+  "perplexity_filter": {
+    "rule": "keep if perplexity_score <= cutoff",
+    "cutoff_method": "min(p90, q3 + 1.5 * iqr)",
+    "cutoff": 54.375,
+    "keep_ratio_after_perplexity": 0.9001920904123452
+  },
+  "word_count_stats": {
+    "summary": {
+      "count": 1483812,
+      "min": 1,
+      "max": 4572,
+      "mean": 30.37173577245635,
+      "p05": 9.0,
+      "p50": 27.0,
+      "p95": 61.0,
+      "lower_cutoff": 9.0,
+      "upper_cutoff": 61.0
+    },
+    "counts": {
+      "total_non_empty_lines": 1483812,
+      "parsed_records": 1483812,
+      "json_decode_error": 0
+    }
+  },
+  "perplexity_stats": {
+    "summary": {
+      "count_valid": 1339787,
+      "min": 1.1787109375,
+      "max": 30576.0,
+      "mean": 29.75756402591886,
+      "q1": 12.890625,
+      "q3": 32.40625,
+      "iqr": 19.515625,
+      "p90": 54.375,
+      "upper_fence": 61.6796875,
+      "cutoff_method": "min(p90, q3 + 1.5 * iqr)",
+      "cutoff": 54.375
+    },
+    "counts": {
+      "json_decode_error": 0,
+      "kept_by_length": 1339994,
+      "removed_too_short": 71913,
+      "removed_too_long": 71905,
+      "missing_perplexity": 0,
+      "non_numeric_perplexity": 0,
+      "inf_perplexity": 207,
+      "nan_perplexity": 0,
+      "non_positive_perplexity": 0
+    }
+  },
+  "filter_counts": {
+    "kept": 1206252,
+    "removed_json_decode_error": 0,
+    "removed_outside_length": 143818,
+    "removed_invalid_perplexity": 207,
+    "removed_above_perplexity_cutoff": 133535
+  }
+}
