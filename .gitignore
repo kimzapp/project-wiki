@@ -14,3 +14,4 @@ setup_environment.sh
 *.csv
 HF_tokens.txt
 wandb_key.txt
+.markers_quick
