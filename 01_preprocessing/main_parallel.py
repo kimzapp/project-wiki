@@ -40,7 +40,7 @@ def parse_args():
     
     parser.add_argument(
         "-o", "--output",
-        default="outputs",
+        default=None,
         help="Directory để lưu output JSONL files.",
     )
     
@@ -53,14 +53,37 @@ def parse_args():
     
     parser.add_argument(
         "--marker-dir",
-        default=".markers",
+        default=None,
         help="Directory để lưu file markers (done/lock).",
     )
     
     parser.add_argument(
         "--log-dir",
-        default="logs",
+        default=None,
         help="Directory để lưu log files.",
+    )
+
+    parser.add_argument(
+        "--max-pages",
+        type=int,
+        default=None,
+        help="Giới hạn số trang xử lý cho mỗi file (None = không giới hạn).",
+    )
+
+    parser.add_argument(
+        "--max-files",
+        type=int,
+        default=None,
+        help="Giới hạn số file bz2 đầu tiên để xử lý (None = không giới hạn).",
+    )
+
+    parser.add_argument(
+        "--quick-run",
+        action="store_true",
+        help=(
+            "Run a small, fast simulation with isolated outputs. "
+            "Defaults to --max-pages=3, --max-files=1 and quick output/log/marker directories unless overridden."
+        ),
     )
     
     parser.add_argument(
@@ -75,6 +98,25 @@ def parse_args():
 
 def main():
     args = parse_args()
+
+    if args.quick_run:
+        if args.max_pages is None:
+            args.max_pages = 3
+        if args.max_files is None:
+            args.max_files = 1
+        if args.output is None:
+            args.output = "01_preprocessing/outputs_quick"
+        if args.marker_dir is None:
+            args.marker_dir = "01_preprocessing/.markers_quick"
+        if args.log_dir is None:
+            args.log_dir = "01_preprocessing/logs_quick"
+    else:
+        if args.output is None:
+            args.output = "outputs"
+        if args.marker_dir is None:
+            args.marker_dir = ".markers"
+        if args.log_dir is None:
+            args.log_dir = "logs"
     
     # Setup directories
     output_dir = Path(args.output)
@@ -90,6 +132,8 @@ def main():
     
     # Lấy danh sách files
     bz2_files = list_bz2_files(args.input)
+    if args.max_files is not None:
+        bz2_files = bz2_files[: max(args.max_files, 0)]
     logger.info(f"Found {len(bz2_files)} bz2 files")
     
     # Đếm files đã hoàn thành
@@ -103,7 +147,7 @@ def main():
     
     # Chuẩn bị args cho workers
     worker_args = [
-        (str(f), str(output_dir), str(marker_dir), str(log_dir), args.log_every)
+        (str(f), str(output_dir), str(marker_dir), str(log_dir), args.log_every, args.max_pages)
         for f in bz2_files
         if not is_completed(f, marker_dir)
     ]

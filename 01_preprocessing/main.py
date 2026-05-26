@@ -48,7 +48,7 @@ def parse_args():
 
     parser.add_argument(
         "-o", "--output",
-        default="wiki_revisions_clean.jsonl",
+        default=None,
         help=(
             "Path to output JSONL file. "
             "Results from all processed dump files will be appended to this file."
@@ -83,10 +83,19 @@ def parse_args():
     # --------------------------------------------------
     parser.add_argument(
         "--log-dir",
-        default="logs",
+        default=None,
         help=(
             "Directory where log files will be written. "
             "A new log file with a timestamped name will be created for each run."
+        ),
+    )
+
+    parser.add_argument(
+        "--quick-run",
+        action="store_true",
+        help=(
+            "Run a small, fast simulation with isolated outputs. "
+            "Defaults to --max-pages=3 and quick output/log directories unless overridden."
         ),
     )
 
@@ -95,6 +104,18 @@ def parse_args():
 
 def main():
     args = parse_args()
+    if args.quick_run:
+        if args.max_pages is None:
+            args.max_pages = 3
+        if args.output is None:
+            args.output = "01_preprocessing/outputs_quick/wiki_revisions_clean.jsonl"
+        if args.log_dir is None:
+            args.log_dir = "01_preprocessing/logs_quick"
+    else:
+        if args.output is None:
+            args.output = "wiki_revisions_clean.jsonl"
+        if args.log_dir is None:
+            args.log_dir = "logs"
     logger = setup_logging(log_dir=args.log_dir)
     bz2_files = list_bz2_files(args.input)
     logger.info("Found %d bz2 files", len(bz2_files))

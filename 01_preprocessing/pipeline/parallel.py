@@ -26,7 +26,7 @@ def process_single_file(args: Tuple) -> ProcessingResult:
     Xử lý một file bz2.
     Được gọi bởi worker process trong pool.
     """
-    bz2_path, output_dir, marker_dir, log_dir, log_every = args
+    bz2_path, output_dir, marker_dir, log_dir, log_every, max_pages = args
     bz2_path = Path(bz2_path)
     output_dir = Path(output_dir)
     marker_dir = Path(marker_dir)
@@ -85,7 +85,7 @@ def process_single_file(args: Tuple) -> ProcessingResult:
         processor = WikipediaRevisionProcessor(
             output_path=str(output_path),
             log_every_n=log_every,
-            max_pages=None,
+            max_pages=max_pages,
             logger=logger,
         )
         
